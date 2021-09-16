@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { StorageKeys } from 'constant';
 
 const initialStateHero = [
   { id: 11, name: 'Dr Nice' },
@@ -16,7 +17,8 @@ const initialStateHero = [
 const heroSlice = createSlice({
   name: 'hero',
   initialState: {
-    heroList: JSON.parse(localStorage.getItem('heroes')) || initialStateHero,
+    heroList:
+      JSON.parse(localStorage.getItem(StorageKeys.HERO)) || initialStateHero,
   },
   reducers: {
     editHero(state, action) {
@@ -25,7 +27,7 @@ const heroSlice = createSlice({
         (hero) => hero.id === parseInt(newHero.id)
       );
       state.heroList[index].name = newHero.name;
-      localStorage.setItem('heroes', JSON.stringify(state.heroList));
+      localStorage.setItem(StorageKeys.HERO, JSON.stringify(state.heroList));
     },
   },
 });
